@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<file:config name="File_Config" doc:name="File Config" doc:id="25f71b76-8d46-4884-bb57-27a18509bb6d" >
+	</file:config>
+	<sub-flow name="user-api-impl-sub_flow" doc:id="9eed8cf1-58eb-4afb-8f0a-e282f64bb282" >
+		<file:read doc:name="read-the-csv-file" doc:id="b85246c4-b9a4-498f-bd97-c1a87e03c2d4" config-ref="File_Config" path="C:\Users\91797\Desktop\SOWJI HP\users.csv"/>
+		<ee:transform doc:name="payload-into -json" doc:id="50a31d3c-71ad-48b3-b9eb-49c11f6080ac" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="590577aa-4005-4880-8095-5f4a5bb92fdb" message='#["print the payload"]'/>
+	</sub-flow>
+</mule>
